@@ -1,0 +1,2 @@
+# CAMPUS-EQUIPMENT-BORROWING-DATABASE-MANAGEMENT-SYSTEM
+Design and implement a database for a Campus equipment borrowing service in which students can request and reserve equipment, authorized personnel can approve borrowing requests, equipment can be issued and returned through individual borrowing-item records and the institution can maintain condition history, maintenance records, fines and payments.

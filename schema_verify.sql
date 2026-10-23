@@ -1,0 +1,45 @@
+-- Assessment 9 - Oracle SQL*Plus verification
+SET LINESIZE 200
+SET PAGESIZE 100
+
+SELECT table_name
+FROM user_tables
+WHERE table_name IN (
+ 'DEPARTMENT','STUDENT','EQUIPMENT_CATEGORY','EQUIPMENT',
+ 'BORROWING','BORROWING_ITEM','RESERVATION','APPROVAL',
+ 'CONDITION_HISTORY','MAINTENANCE','FINE','PAYMENT'
+)
+ORDER BY table_name;
+
+SELECT 'DEPARTMENT' AS table_name, COUNT(*) AS row_count FROM DEPARTMENT UNION ALL
+SELECT 'STUDENT', COUNT(*) FROM STUDENT UNION ALL
+SELECT 'EQUIPMENT_CATEGORY', COUNT(*) FROM EQUIPMENT_CATEGORY UNION ALL
+SELECT 'EQUIPMENT', COUNT(*) FROM EQUIPMENT UNION ALL
+SELECT 'BORROWING', COUNT(*) FROM BORROWING UNION ALL
+SELECT 'BORROWING_ITEM', COUNT(*) FROM BORROWING_ITEM UNION ALL
+SELECT 'RESERVATION', COUNT(*) FROM RESERVATION UNION ALL
+SELECT 'APPROVAL', COUNT(*) FROM APPROVAL UNION ALL
+SELECT 'CONDITION_HISTORY', COUNT(*) FROM CONDITION_HISTORY UNION ALL
+SELECT 'MAINTENANCE', COUNT(*) FROM MAINTENANCE UNION ALL
+SELECT 'FINE', COUNT(*) FROM FINE UNION ALL
+SELECT 'PAYMENT', COUNT(*) FROM PAYMENT;
+
+-- Current holders
+SELECT s.student_name, e.equipment_name, bi.issue_date, bi.due_date
+FROM BORROWING_ITEM bi
+JOIN BORROWING b ON b.borrowing_id = bi.borrowing_id
+JOIN STUDENT s ON s.student_id = b.student_id
+JOIN EQUIPMENT e ON e.equipment_id = bi.equipment_id
+WHERE bi.item_status = 'ISSUED'
+ORDER BY bi.due_date;
+
+-- Unpaid fines
+SELECT f.fine_id, s.student_name, e.equipment_name,
+       f.amount, f.reason, f.payment_status
+FROM FINE f
+JOIN BORROWING_ITEM bi ON bi.borrowing_item_id = f.borrowing_item_id
+JOIN BORROWING b ON b.borrowing_id = bi.borrowing_id
+JOIN STUDENT s ON s.student_id = b.student_id
+JOIN EQUIPMENT e ON e.equipment_id = bi.equipment_id
+WHERE f.payment_status = 'UNPAID'
+ORDER BY f.fine_id;

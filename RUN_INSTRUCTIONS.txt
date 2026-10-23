@@ -1,0 +1,85 @@
+CAMPUS EQUIPMENT MANAGEMENT SYSTEM - ASSESSMENT 9
+====================================================
+
+1. ORACLE DATABASE
+------------------
+Make sure Oracle Database and its listener are running.
+
+Use SQL*Plus to run your Assessment 8 DDL first.
+
+Example:
+    sqlplus YOUR_USERNAME/YOUR_PASSWORD@localhost:1521/XEPDB1
+    @your_ddl.sql
+
+Then run the DML script supplied with your project:
+    @your_dml.sql
+
+Then verify:
+    @schema_verify.sql
+
+If your Oracle service is FREEPDB1, replace XEPDB1 with FREEPDB1.
+
+2. PYTHON
+---------
+Install:
+    python -m pip install oracledb
+
+3. CONFIGURE CONNECTION
+-----------------------
+Windows CMD example:
+
+    set ORA_HOST=localhost
+    set ORA_PORT=1521
+    set ORA_SERVICE=XEPDB1
+    set ORA_USER=YOUR_USERNAME
+    set ORA_PASSWORD=YOUR_PASSWORD
+
+IMPORTANT:
+Do not type SQL*Plus commands into Python.
+The Python program connects directly to the Oracle service.
+
+4. TEST CONNECTION
+------------------
+    python db_connection.py
+
+Expected:
+    Oracle connection successful:
+    {'user': '...', 'service': 'XEPDB1', 'server_time': '...', ...}
+
+5. RUN FRONTEND
+---------------
+    python app.py
+
+6. ASSESSMENT 9 DEMONSTRATION
+-----------------------------
+A. Click Test Oracle Connection.
+B. Show Dashboard.
+C. Add a new student.
+D. Open Equipment and show AVAILABLE equipment.
+E. Issue an AVAILABLE equipment item.
+F. Refresh Equipment and show BORROWED status.
+G. Return the item.
+H. Show AVAILABLE or DAMAGED status depending on return condition.
+I. Show Overdue Items and Unpaid Fines reports.
+
+7. IF CONNECTION FAILS
+----------------------
+ORA-12514 / ORA-12541:
+    Check that Oracle listener is running and that the service name is correct.
+
+ORA-01017:
+    Username/password is incorrect.
+
+DPY-6005 / connection timeout:
+    Check host, port and listener.
+
+ModuleNotFoundError: oracledb:
+    python -m pip install oracledb
+
+If your SQL*Plus connection works with:
+    CONNECT user/password@localhost:1521/XEPDB1
+then use:
+    ORA_HOST=localhost
+    ORA_PORT=1521
+    ORA_SERVICE=XEPDB1
+with the same user/password.

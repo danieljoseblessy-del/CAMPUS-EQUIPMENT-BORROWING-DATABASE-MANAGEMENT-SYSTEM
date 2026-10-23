@@ -1,0 +1,1 @@
+Run the DML script supplied with the project after the Assessment 8 DDL. The supplied DML is already aligned with the 12-table schema used by this frontend.
